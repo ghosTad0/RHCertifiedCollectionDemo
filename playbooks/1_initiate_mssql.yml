@@ -16,4 +16,6 @@
   collections: 
     - microsoft.sql
   tasks:
-    import_role: microsoft.sql.server
+    - name: Initiating mssql server and running post script
+      import_role: 
+        name: microsoft.sql.server
