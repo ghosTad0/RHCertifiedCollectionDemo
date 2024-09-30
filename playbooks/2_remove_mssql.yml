@@ -1,0 +1,35 @@
+- name: Playbook for removing mssql from redhat linux
+  hosts: all
+  vars:
+    mssql_accept_microsoft_sql_server_standard_eula: true
+    mssql_accept_microsoft_cli_utilities_for_sql_server_eula: true
+    mssql_accept_microsoft_odbc_driver_17_for_sql_server_eula: true
+    mssql_install_fts: false   # Remove full-text search
+    mssql_install_powershell: false  # Remove PowerShell if installed
+    mssql_server_remove: true  # Custom flag to remove the SQL Server package
+  tasks:
+    - name: Stop SQL Server service
+      ansible.builtin.systemd:
+        name: mssql-server
+        state: stopped
+        enabled: false
+
+    - name: Remove SQL Server package
+      ansible.builtin.package:
+        name: mssql-server
+        state: absent
+
+    - name: Remove SQL Server tools
+      ansible.builtin.package:
+        name: mssql-tools
+        state: absent
+
+    - name: Remove datadirs
+      ansible.builtin.file:
+        path: /var/opt/mssql
+        state: absent
+
+    - name: Remove ODBC driver
+      ansible.builtin.package:
+        name: msodbcsql17
+        state: absent
