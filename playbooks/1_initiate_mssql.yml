@@ -9,7 +9,7 @@
     mssql_password: "p@55w0rD"
     mssql_edition: Evaluation
     mssql_tcp_port: 1433
-    mssql_datadir: /home/cloud-user/__datadirs/mssql
+    # mssql_datadir: /home/cloud-user/__datadirs/mssql  #FOR SOME REASON WE GET A HUGE FILE WRITING PERMISSION ISSUE WHEN THIS IS THERE.
     mssql_post_input_sql_file:
       - "../files/script1.sql"
     # roles:
